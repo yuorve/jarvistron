@@ -1,58 +1,66 @@
-Jarvistron Bot: Domótica y Alertas Inteligentes con Alexa, Telegram y Automatización
-Me complace compartir mi proyecto personal: Jarvistron Bot, una solución de domótica inteligente que integra Amazon Alexa, Telegram, n8n y Google Sheets para mejorar la seguridad y el monitoreo del hogar. Este prototipo, nacido de mi interés en la automatización, demuestra cómo se pueden interconectar diversas plataformas para crear un sistema de alertas proactivo y un registro de actividad.
 
-¿Cómo funciona Jarvistron Bot?
-El corazón de Jarvistron Bot reside en la orquestación de sus componentes:
+# Jarvistron Bot: Domótica y Alertas Inteligentes
 
-Amazon Alexa (Jarvistron Bot Skill): Es el punto de entrada principal. A través de rutinas de Alexa activadas por los sensores de mi casa (Xiaomi Home, eWelink, Tuya, integrados en Home Assistant), la skill envía información relevante a mi sistema.
+Este proyecto personal, **Jarvistron Bot**, es una solución de domótica inteligente que integra **Amazon Alexa**, **Telegram**, **n8n** y **Google Sheets** para proporcionar monitoreo y alertas sobre la actividad del hogar. Nacido de la curiosidad y el deseo de aprender sobre la interconexión de sistemas, Jarvistron Bot demuestra cómo se pueden automatizar tareas y mejorar la seguridad en un entorno doméstico.
 
-n8n (Automatización y Conexión): Este orquestador clave maneja dos flujos de trabajo principales:
+-----
 
-Webhook para Google Sheets: Recibe los datos de la skill de Alexa, activado por un webhook, y los registra automáticamente en una hoja de Google Sheets.
+## 🚀 ¿Cómo Funciona?
 
-Gestión del Bot de Telegram: Actúa como disparador cuando el bot de Telegram recibe mensajes. Permite enviar mensajes de alerta y consultar los registros de Google Sheets a través del bot.
+Jarvistron Bot orquesta varios componentes para crear un sistema cohesivo:
 
-Telegram Bot (Alertas en Tiempo Real): Recibe avisos instantáneos sobre eventos importantes, como "puertas abiertas" o "sensores de movimiento activados", directamente en mi dispositivo móvil a través de la API de Telegram.
+1.  **Amazon Alexa (Skill "Jarvistron Bot")**: Es el punto de entrada principal. A través de **rutinas de Alexa** configuradas en mi sistema de domótica, la skill envía información relevante sobre el estado de la casa.
+2.  **Sensores Domóticos**: Sensores de **Xiaomi Home**, **eWelink** y **Tuya** (integrados a través de Home Assistant) activan las rutinas de Alexa, enviando datos sobre eventos como "puertas abiertas" o "movimiento detectado".
+3.  **Home Assistant (Contenedor Docker)**: Actúa como el cerebro local de la domótica, recopilando datos de los diversos sensores y dispositivos.
+4.  **n8n (Contenedor Docker)**: Este orquestador de flujos de trabajo maneja la lógica principal:
+      * **Webhook para Google Sheets**: Recibe los datos de la skill de Alexa (vía Cloudflare Tunnel) y los registra automáticamente en una hoja de Google Sheets.
+      * **Gestión del Bot de Telegram**: Envía mensajes de alerta a Telegram y permite consultar los registros de Google Sheets a través del bot.
+5.  **Cloudflare Tunnels**: Proporciona una conexión segura y privada entre la Amazon Skill (y cualquier servicio externo) y los contenedores Docker de n8n y Home Assistant, sin exponer puertos directamente a internet.
+6.  **Telegram Bot**: Un bot personalizado que envía **avisos instantáneos** sobre eventos críticos (ej., puertas abiertas, movimiento) directamente al móvil del usuario. También permite interactuar para consultar el historial de actividad.
+7.  **Google Sheets**: Almacena un **historial detallado** y cronológico de todos los eventos de los sensores, facilitando el seguimiento y análisis para fines de seguridad.
 
-Google Sheets (Registro y Análisis): Almacena un historial detallado de los eventos de los sensores. Estos registros son cruciales para el seguimiento de la actividad y la seguridad, proporcionando una visión clara de lo que ocurre en casa.
+-----
 
-Arquitectura de Despliegue y Conectividad Segura
-Un aspecto clave de este proyecto es su robusta arquitectura de despliegue:
+## 🌐 Arquitectura del Sistema
 
-Tanto Home Assistant como n8n están configurados como contenedores Docker dentro de mi red local.
+El siguiente diagrama ilustra el flujo de datos y la interacción entre los componentes clave de Jarvistron Bot:
 
-La exposición segura de estos servicios a internet se realiza mediante Cloudflare Tunnels. Esto permite que la Amazon Skill (que necesita acceder al webhook de n8n) y otras integraciones externas se comuniquen con mi red interna de forma segura, sin necesidad de abrir puertos en el router, lo que refuerza la seguridad y la privacidad.
+![Diagrama de Arquitectura de Jarvistron Bot](diagrama_jarvistron_bot.png)
 
-Beneficios y Futuro del Proyecto
-Aunque el principal motor de este proyecto ha sido la curiosidad y el aprendizaje en el ámbito de la automatización y la interconexión de sistemas, Jarvistron Bot ofrece beneficios tangibles como:
+-----
 
-Monitoreo Proactivo: Recibe alertas cruciales sobre la actividad en casa, aumentando la seguridad.
+## ✨ Beneficios y Aprendizaje
 
-Registro Histórico: Mantiene un registro detallado de eventos para análisis y seguimiento.
+Aunque su propósito principal ha sido el **aprendizaje práctico** en el campo de la automatización y la integración de sistemas, Jarvistron Bot ofrece beneficios concretos:
 
-Integración Versátil: Demuestra la capacidad de integrar diversas tecnologías (voz, domótica, automatización low-code, bases de datos) en una solución cohesiva.
+  * **Monitoreo Proactivo**: Alertas en tiempo real sobre la actividad en el hogar para una mayor tranquilidad.
+  * **Registro Histórico**: Un historial completo de eventos para análisis y auditoría de seguridad.
+  * **Integración Versátil**: Demuestra la capacidad de interconectar tecnologías dispares (voz, IoT, automatización low-code, contenedores, seguridad de red).
+  * **Despliegue Robusto**: Uso de **Docker** para un despliegue eficiente y **Cloudflare Tunnels** para una conectividad segura y privada.
 
-Despliegue Robusto y Seguro: Utiliza tecnologías modernas como Docker y Cloudflare Tunnels para una infraestructura fiable y protegida.
+-----
 
-Este prototipo es una base sólida, y ya estoy explorando cómo expandir sus capacidades, como permitir el control de la domótica directamente desde el bot de Telegram.
+## 🛠 Tecnologías Utilizadas
 
-¿Por qué es relevante para ti?
-Este proyecto showcase mis habilidades en:
+  * **Amazon Alexa Skills Kit**
+  * **n8n** (Automatización y Workflows)
+  * **Telegram Bot API**
+  * **Google Sheets API**
+  * **Home Assistant**
+  * **Docker** (Contenerización)
+  * **Cloudflare Tunnels** (Conectividad Segura)
+  * Sensores **Xiaomi Home**, **eWelink**, **Tuya**
 
-Desarrollo de Amazon Alexa Skills
+-----
 
-Automatización con n8n (integraciones, webhooks, flujos de trabajo)
+## 📈 Próximos Pasos
 
-Gestión de APIs (Telegram API)
+Actualmente, estoy explorando la posibilidad de añadir capacidades de control remoto de la domótica directamente a través del bot de Telegram, lo que expandiría aún más la utilidad del sistema.
 
-Integración de Sistemas Domóticos (Home Assistant, Xiaomi Home, eWelink, Tuya)
+-----
 
-Manejo de Datos (Google Sheets para registro y consulta)
+## 🤝 Conéctate Conmigo
 
-Contenerización con Docker
+Este proyecto es un testimonio de cómo la curiosidad puede impulsar el aprendizaje y la creación de soluciones innovadoras. Si tienes preguntas, sugerencias o simplemente te gustaría discutir sobre domótica, automatización o integración de sistemas, ¡no dudes en contactarme\!
 
-Configuración de Redes y Seguridad (Cloudflare Tunnels)
-
-Resolución de Problemas y Pensamiento Lógico
-
-Si buscas un perfil con experiencia práctica en la creación de soluciones innovadoras y automatizadas, o si te interesa discutir posibles aplicaciones de esta tecnología, no dudes en contactarme.
+-----
