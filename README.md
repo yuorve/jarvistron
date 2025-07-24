@@ -61,6 +61,6 @@ Actualmente, estoy explorando la posibilidad de añadir capacidades de control r
 
 ## 🤝 Conéctate Conmigo
 
-Este proyecto es un testimonio de cómo la curiosidad puede impulsar el aprendizaje y la creación de soluciones innovadoras. Si tienes preguntas, sugerencias o simplemente te gustaría discutir sobre domótica, automatización o integración de sistemas, ¡no dudes en contactarme\!
+Este proyecto es un testimonio de cómo la curiosidad puede impulsar el aprendizaje y la creación de soluciones innovadoras. Si tienes preguntas, sugerencias o simplemente te gustaría discutir sobre domótica, automatización o integración de sistemas, ¡no dudes en contactarme\! en https://www.linkedin.com/in/yuryoropeza/
 
 -----
